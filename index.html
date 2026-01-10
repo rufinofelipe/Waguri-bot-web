@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Waguri Bot | Asistente de WhatsApp</title>
+    
+    <!-- METADATOS -->
+    <meta name="description" content="Waguri Bot - Tu asistente inteligente de WhatsApp. Automatiza tus chats, juega y mucho más.">
+    <meta name="keywords" content="whatsapp bot, waguri, chatbot, automatización">
+    <meta name="author" content="Rufino ✝️">
+    
+    <!-- ENLACE A CSS (VERIFICADO) -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- ICONOS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FAVICON -->
+    <link rel="icon" href="https://cdn.hostrta.win/fl/85rm.jpg" type="image/jpeg">
+</head>
+<body>
+    <!-- CARGADOR -->
+    <div class="loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- NAVEGACIÓN -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-brand">
+                <img src="https://cdn.hostrta.win/fl/85rm.jpg" alt="Logo Waguri" class="logo">
+                <span class="brand-text">WAGURI BOT</span>
+            </a>
+            
+            <button class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active"><i class="fas fa-home"></i> Inicio</a>
+                <a href="#features" class="nav-link"><i class="fas fa-star"></i> Características</a>
+                <a href="#community" class="nav-link"><i class="fas fa-users"></i> Comunidad</a>
+                <a href="#developers" class="nav-link"><i class="fas fa-code"></i> Desarrolladores</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">Waguri Bot</span><br>
+                    Revoluciona tus chats de WhatsApp
+                </h1>
+                <p class="hero-subtitle">
+                    El asistente inteligente que lleva tu experiencia de WhatsApp a otro nivel. 
+                    Automatización, diversión y utilidad en un solo bot.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#community" class="btn btn-primary">
+                        <i class="fab fa-whatsapp"></i> Unirse Ahora
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        <i class="fas fa-play-circle"></i> Ver Demo
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <div class="image-wrapper">
+                    <img src="https://cdn.hostrta.win/fl/85rm.jpg" alt="Waguri Bot Preview" class="bot-image">
+                    <div class="image-glow"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SCROLL INDICATOR -->
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ESTADÍSTICAS -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="stat-number">24/7</h3>
+                <p class="stat-label">Activo</p>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="stat-number">500+</h3>
+                <p class="stat-label">Usuarios</p>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="stat-number">50+</h3>
+                <p class="stat-label">Funciones</p>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="stat-number">100%</h3>
+                <p class="stat-label">Gratuito</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMUNIDAD -->
+    <section class="community-section" id="community">
+        <div class="section-header">
+            <h2 class="section-title">Conecta con la <span class="highlight">Comunidad</span></h2>
+            <p class="section-subtitle">Únete a nuestros canales oficiales</p>
+        </div>
+        
+        <div class="community-cards">
+            <!-- CARD 1: GRUPO WHATSAPP -->
+            <div class="community-card">
+                <div class="card-header">
+                    <div class="card-icon whatsapp-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <span class="card-badge">Popular</span>
+                </div>
+                <h3 class="card-title">Grupo Oficial</h3>
+                <p class="card-description">
+                    Comunidad activa donde podrás resolver dudas, reportar problemas y compartir con otros usuarios.
+                </p>
+                <a href="https://chat.whatsapp.com/LRQrf8vv50BDtwN8JWfhrX" 
+                   target="_blank" 
+                   class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> Unirse al Grupo
+                </a>
+            </div>
+            
+            <!-- CARD 2: CANAL WHATSAPP -->
+            <div class="community-card">
+                <div class="card-header">
+                    <div class="card-icon channel-icon">
+                        <i class="fas fa-broadcast-tower"></i>
+                    </div>
+                    <span class="card-badge">Oficial</span>
+                </div>
+                <h3 class="card-title">Canal de Anuncios</h3>
+                <p class="card-description">
+                    Recibe actualizaciones, anuncios importantes y noticias directamente en WhatsApp.
+                </p>
+                <a href="https://whatsapp.com/channel/0029VbBUHyQCsU9IpJ0oIO2i" 
+                   target="_blank" 
+                   class="btn btn-channel">
+                    <i class="fab fa-whatsapp"></i> Seguir Canal
+                </a>
+            </div>
+            
+            <!-- CARD 3: GITHUB -->
+            <div class="community-card">
+                <div class="card-header">
+                    <div class="card-icon github-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <span class="card-badge">Open Source</span>
+                </div>
+                <h3 class="card-title">Repositorio GitHub</h3>
+                <p class="card-description">
+                    Código fuente del proyecto. Contribuye, reporta issues o aprende cómo funciona.
+                </p>
+                <a href="https://github.com/rufinofelipe/waguri-bot" 
+                   target="_blank" 
+                   class="btn btn-github">
+                    <i class="fab fa-github"></i> Ver Código
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESARROLLADORES -->
+    <section class="developers-section" id="developers">
+        <div class="section-header">
+            <h2 class="section-title">Equipo de <span class="highlight">Desarrollo</span></h2>
+            <p class="section-subtitle">Los creadores detrás de Waguri Bot</p>
+        </div>
+        
+        <div class="developers-grid">
+            <!-- RUFINO -->
+            <div class="developer-card">
+                <div class="dev-avatar rufino-avatar">
+                    <span>R</span>
+                    <div class="avatar-badge">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                </div>
+                <h3 class="dev-name">Rufino ✝️</h3>
+                <p class="dev-role">Desarrollador Principal</p>
+                <p class="dev-description">
+                    Creador y dueño principal del bot. Encargado de la visión y desarrollo principal.
+                </p>
+                <div class="dev-social">
+                    <a href="https://www.instagram.com/rufino_felipe.15?igsh=MWE1dnZuYnRmeDFpaA==" 
+                       target="_blank" 
+                       class="social-link instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://github.com/rufinofelipe" 
+                       target="_blank" 
+                       class="social-link github">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- DUARTE -->
+            <div class="developer-card">
+                <div class="dev-avatar duarte-avatar">
+                    <span>D</span>
+                </div>
+                <h3 class="dev-name">DuarteXV</h3>
+                <p class="dev-role">Desarrollador & Editor</p>
+                <p class="dev-description">
+                    Contribuye al desarrollo de funciones y se encarga de la edición del código.
+                </p>
+                <div class="dev-social">
+                    <a href="#" class="social-link github">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- ANDER -->
+            <div class="developer-card">
+                <div class="dev-avatar ander-avatar">
+                    <span>A</span>
+                </div>
+                <h3 class="dev-name">Ander</h3>
+                <p class="dev-role">Desarrollo Técnico</p>
+                <p class="dev-description">
+                    Encargado del desarrollo técnico, optimización y resolución de problemas.
+                </p>
+                <div class="dev-social">
+                    <a href="#" class="social-link github">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- COLUMNA 1: INFO -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="https://cdn.hostrta.win/fl/85rm.jpg" alt="Waguri Logo">
+                        <div>
+                            <h3>Waguri Bot</h3>
+                            <p>Asistente inteligente de WhatsApp</p>
+                        </div>
+                    </div>
+                    <p class="footer-about">
+                        Proyecto open-source creado con pasión para mejorar la experiencia en WhatsApp.
+                    </p>
+                </div>
+                
+                <!-- COLUMNA 2: ENLACES -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Enlaces Rápidos</h4>
+                    <a href="#home" class="footer-link">Inicio</a>
+                    <a href="#features" class="footer-link">Características</a>
+                    <a href="#community" class="footer-link">Comunidad</a>
+                    <a href="#developers" class="footer-link">Desarrolladores</a>
+                </div>
+                
+                <!-- COLUMNA 3: REDES -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Redes Sociales</h4>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/rufino_felipe.15?igsh=MWE1dnZuYnRmeDFpaA==" 
+                           target="_blank" 
+                           class="social-btn instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://github.com/rufinofelipe/waguri-bot" 
+                           target="_blank" 
+                           class="social-btn github">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://chat.whatsapp.com/LRQrf8vv50BDtwN8JWfhrX" 
+                           target="_blank" 
+                           class="social-btn whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- COPYRIGHT -->
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> Waguri Bot. Todos los derechos reservados.</p>
+                <p class="footer-heart">❤️ Hecho con pasión por el equipo de Waguri</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ENLACE A JAVASCRIPT (VERIFICADO) -->
+    <script src="js/app.js"></script>
+</body>
+</html>
