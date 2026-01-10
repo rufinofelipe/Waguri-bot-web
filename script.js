@@ -1,39 +1,48 @@
-// script.js
+// js/main.js
 
-// Esperar a que el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Waguri Bot - Página cargada correctamente');
+    console.log('🚀 Waguri Bot - Página cargada');
     
-    // Inicializar funcionalidades
-    initSmoothScroll();
+    // Inicializar todas las funcionalidades
+    initNavbar();
     initAnimations();
-    initSocialButtons();
-    initDeveloperCards();
-    
-    // Mostrar año actual en el copyright
-    updateCopyrightYear();
+    initCurrentYear();
+    initScrollSpy();
+    initCardsHover();
+    initSocialLinks();
+    initPageLoader();
 });
 
-// Scroll suave para los enlaces internos
-function initSmoothScroll() {
-    const internalLinks = document.querySelectorAll('a[href^="#"]');
+// Navegación responsive
+function initNavbar() {
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    const navLinks = document.querySelectorAll('.nav-link');
     
-    internalLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            navToggle.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Cerrar menú al hacer clic en un enlace
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                navToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+                navToggle.innerHTML = '<i class="fas fa-bars"></i>';
             }
         });
-    });
+    }
 }
 
 // Animaciones al hacer scroll
@@ -43,255 +52,386 @@ function initAnimations() {
         rootMargin: '0px 0px -50px 0px'
     };
     
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('animated');
+                entry.target.classList.add('animate-in');
+                
+                // Animación específica para tarjetas
+                if (entry.target.classList.contains('feature-card') || 
+                    entry.target.classList.contains('community-card') ||
+                    entry.target.classList.contains('developer-card')) {
+                    entry.target.style.animationDelay = `${entry.target.dataset.delay || '0'}s`;
+                    entry.target.classList.add('animated');
+                }
             }
         });
     }, observerOptions);
     
-    // Observar elementos para animar
-    const elementsToAnimate = document.querySelectorAll('.community-card, .footer-section');
-    elementsToAnimate.forEach(element => {
+    // Elementos a observar
+    const animatedElements = document.querySelectorAll(
+        '.feature-card, .community-card, .developer-card, .section-header'
+    );
+    
+    animatedElements.forEach((element, index) => {
+        element.dataset.delay = (index * 0.1).toFixed(1);
         observer.observe(element);
     });
-}
-
-// Funcionalidades para botones sociales
-function initSocialButtons() {
-    const socialButtons = document.querySelectorAll('.social-links a, .btn');
     
-    socialButtons.forEach(button => {
-        // Efecto de click
-        button.addEventListener('click', function(e) {
-            // Agregar efecto visual
-            this.style.transform = 'scale(0.95)';
-            
-            // Restaurar después de 200ms
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 200);
-            
-            // Si es un botón que abre enlace externo, registrar evento
-            if (this.href && this.target === '_blank') {
-                console.log(`Redirigiendo a: ${this.href}`);
-                
-                // Aquí podrías agregar tracking de analytics si lo necesitas
-                // Por ejemplo: trackOutboundLink(this.href);
-            }
-        });
-        
-        // Efecto hover mejorado
-        button.addEventListener('mouseenter', function() {
-            this.style.transition = 'all 0.2s ease';
-        });
-    });
-}
-
-// Funcionalidades para las tarjetas de desarrolladores
-function initDeveloperCards() {
-    const developerItems = document.querySelectorAll('.developers-list li');
-    
-    developerItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const developerName = this.querySelector('h4').textContent;
-            console.log(`Desarrollador seleccionado: ${developerName}`);
-            
-            // Efecto visual temporal
-            this.style.backgroundColor = 'rgba(114, 137, 218, 0.1)';
-            this.style.borderRadius = '8px';
-            
-            setTimeout(() => {
-                this.style.backgroundColor = '';
-            }, 500);
-        });
-        
-        // Efecto hover
-        item.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateX(5px)';
-            this.style.transition = 'transform 0.3s ease';
-        });
-        
-        item.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateX(0)';
-        });
-    });
-}
-
-// Actualizar año del copyright
-function updateCopyrightYear() {
-    const copyrightElement = document.querySelector('.copyright p');
-    if (copyrightElement) {
-        const currentYear = new Date().getFullYear();
-        copyrightElement.innerHTML = copyrightElement.innerHTML.replace('2023', currentYear);
-    }
-}
-
-// Función para rastrear clics en enlaces externos (ejemplo para analytics)
-function trackOutboundLink(url) {
-    // Esta función es un ejemplo para implementar tracking
-    // Deberías reemplazarla con tu código de analytics real
-    console.log(`Clic en enlace externo: ${url}`);
-    
-    // Ejemplo para Google Analytics:
-    // gtag('event', 'click', {
-    //     'event_category': 'outbound',
-    //     'event_label': url,
-    //     'transport_type': 'beacon'
-    // });
-}
-
-// Función para mostrar notificación temporal
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-        <span>${message}</span>
-        <button class="notification-close">&times;</button>
-    `;
-    
-    // Estilos básicos para la notificación
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 15px 20px;
-        background: ${type === 'success' ? '#43B581' : type === 'error' ? '#F04747' : '#7289DA'};
-        color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        z-index: 1000;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        min-width: 300px;
-        animation: slideIn 0.3s ease;
-    `;
-    
-    // Animación
+    // Agregar estilos CSS para animaciones
     const style = document.createElement('style');
     style.textContent = `
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        .animate-in {
+            animation: fadeInUp 0.6s ease forwards;
         }
-        @keyframes slideOut {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .feature-card.animated,
+        .community-card.animated,
+        .developer-card.animated {
+            animation: cardReveal 0.8s ease forwards;
+        }
+        
+        @keyframes cardReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
     `;
     document.head.appendChild(style);
+}
+
+// Actualizar año actual
+function initCurrentYear() {
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        const currentYear = new Date().getFullYear();
+        yearElement.textContent = currentYear;
+    }
+}
+
+// Scroll Spy para navegación
+function initScrollSpy() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
     
-    document.body.appendChild(notification);
-    
-    // Botón para cerrar
-    const closeBtn = notification.querySelector('.notification-close');
-    closeBtn.addEventListener('click', function() {
-        notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
+    window.addEventListener('scroll', () => {
+        let current = '';
+        const scrollPosition = window.scrollY + 100;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                current = section.getAttribute('id');
             }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    });
+}
+
+// Efectos hover en tarjetas
+function initCardsHover() {
+    const cards = document.querySelectorAll('.feature-card, .community-card, .developer-card');
+    
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            const allCards = document.querySelectorAll('.feature-card, .community-card, .developer-card');
+            allCards.forEach(otherCard => {
+                if (otherCard !== this) {
+                    otherCard.style.filter = 'blur(2px)';
+                    otherCard.style.transform = 'scale(0.98)';
+                }
+            });
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            const allCards = document.querySelectorAll('.feature-card, .community-card, .developer-card');
+            allCards.forEach(otherCard => {
+                otherCard.style.filter = '';
+                otherCard.style.transform = '';
+            });
+        });
+    });
+}
+
+// Efectos en enlaces sociales
+function initSocialLinks() {
+    const socialLinks = document.querySelectorAll('.social-link, .social-icon');
+    
+    socialLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Efecto de onda
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                width: ${size}px;
+                height: ${size}px;
+                top: ${y}px;
+                left: ${x}px;
+                pointer-events: none;
+            `;
+            
+            this.style.position = 'relative';
+            this.style.overflow = 'hidden';
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
+    
+    // Agregar estilos para ripple
+    const rippleStyle = document.createElement('style');
+    rippleStyle.textContent = `
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(rippleStyle);
+}
+
+// Cargador de página
+function initPageLoader() {
+    // Simular carga de página
+    setTimeout(() => {
+        document.body.classList.add('loaded');
+    }, 500);
+    
+    // Agregar clase loaded al body
+    const loadStyle = document.createElement('style');
+    loadStyle.textContent = `
+        body {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        body.loaded {
+            opacity: 1;
+        }
+    `;
+    document.head.appendChild(loadStyle);
+}
+
+// Notificación toast
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `
+        <div class="toast-content">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+            <span>${message}</span>
+        </div>
+        <button class="toast-close"><i class="fas fa-times"></i></button>
+    `;
+    
+    // Estilos del toast
+    const toastStyle = document.createElement('style');
+    toastStyle.textContent = `
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            z-index: 9999;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            border-left: 4px solid var(--primary);
+            max-width: 400px;
+        }
+        
+        .toast-success {
+            border-left-color: var(--secondary);
+        }
+        
+        .toast-error {
+            border-left-color: #ef4444;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        .toast-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .toast-content i {
+            font-size: 1.2rem;
+        }
+        
+        .toast-success .toast-content i {
+            color: var(--secondary);
+        }
+        
+        .toast-error .toast-content i {
+            color: #ef4444;
+        }
+        
+        .toast-close {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0.25rem;
+            transition: color 0.2s;
+        }
+        
+        .toast-close:hover {
+            color: var(--dark);
+        }
+    `;
+    
+    if (!document.querySelector('#toast-style')) {
+        toastStyle.id = 'toast-style';
+        document.head.appendChild(toastStyle);
+    }
+    
+    document.body.appendChild(toast);
+    
+    // Mostrar toast
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 10);
+    
+    // Botón cerrar
+    const closeBtn = toast.querySelector('.toast-close');
+    closeBtn.addEventListener('click', () => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            toast.remove();
         }, 300);
     });
     
-    // Auto-eliminar después de 5 segundos
+    // Auto cerrar después de 5 segundos
     setTimeout(() => {
-        if (notification.parentNode) {
-            notification.style.animation = 'slideOut 0.3s ease';
+        if (toast.parentNode) {
+            toast.classList.remove('show');
             setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
+                if (toast.parentNode) {
+                    toast.remove();
                 }
             }, 300);
         }
     }, 5000);
-}
-
-// Función para cambiar el tema claro/oscuro (opcional)
-function toggleTheme() {
-    const body = document.body;
-    const currentTheme = body.getAttribute('data-theme');
     
-    if (currentTheme === 'dark') {
-        body.setAttribute('data-theme', 'light');
-        localStorage.setItem('theme', 'light');
-        showNotification('Tema cambiado a claro', 'success');
-    } else {
-        body.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-        showNotification('Tema cambiado a oscuro', 'success');
-    }
+    return toast;
 }
 
-// Cargar tema guardado
-function loadSavedTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        document.body.setAttribute('data-theme', savedTheme);
+// Ejemplo de uso de toast:
+// showToast('¡Bienvenido a Waguri Bot!', 'success');
+
+// Manejo de clics en enlaces externos
+document.addEventListener('click', function(e) {
+    const link = e.target.closest('a');
+    if (link && link.href && link.target === '_blank') {
+        console.log(`🌐 Enlace externo clickeado: ${link.href}`);
+        // Aquí podrías agregar tracking de analytics
     }
-}
+});
 
-// Inicializar tema al cargar
-loadSavedTheme();
-
-// Agregar botón de cambio de tema (si lo deseas)
-// Puedes descomentar esto si quieres agregar un botón de cambio de tema
-
-function addThemeToggleButton() {
-    const themeButton = document.createElement('button');
-    themeButton.id = 'theme-toggle';
-    themeButton.innerHTML = '🌓';
-    themeButton.title = 'Cambiar tema';
-    themeButton.style.cssText = `
+// Efecto de partículas (opcional)
+function initParticles() {
+    const particlesContainer = document.createElement('div');
+    particlesContainer.className = 'particles-container';
+    particlesContainer.style.cssText = `
         position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: var(--primary-color);
-        color: white;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        z-index: 100;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+        overflow: hidden;
     `;
     
-    themeButton.addEventListener('click', toggleTheme);
-    document.body.appendChild(themeButton);
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.cssText = `
+            position: absolute;
+            width: ${Math.random() * 4 + 1}px;
+            height: ${Math.random() * 4 + 1}px;
+            background: rgba(99, 102, 241, ${Math.random() * 0.3 + 0.1});
+            border-radius: 50%;
+            top: ${Math.random() * 100}%;
+            left: ${Math.random() * 100}%;
+            animation: float-particle ${Math.random() * 20 + 10}s linear infinite;
+        `;
+        
+        particlesContainer.appendChild(particle);
+    }
+    
+    const particlesStyle = document.createElement('style');
+    particlesStyle.textContent = `
+        @keyframes float-particle {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) rotate(90deg);
+            }
+            50% {
+                transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) rotate(180deg);
+            }
+            75% {
+                transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+    `;
+    
+    document.head.appendChild(particlesStyle);
+    document.body.appendChild(particlesContainer);
 }
 
-// Llamar esta función si quieres el botón de tema
-// addThemeToggleButton();
-*/
-
-// Manejo de errores en imágenes
-document.addEventListener('error', function(e) {
-    if (e.target.tagName === 'IMG') {
-        console.warn('Error al cargar imagen:', e.target.src);
-        e.target.style.opacity = '0.5';
-        e.target.style.filter = 'grayscale(100%)';
-        
-        // Mostrar imagen de respaldo si la principal falla
-        if (e.target.classList.contains('logo-img') || e.target.classList.contains('bot-image')) {
-            e.target.alt = 'Imagen no disponible - Waguri Bot';
-        }
-    }
-}, true);
-
-// Optimización para móviles: prevenir zoom en inputs
-document.addEventListener('touchstart', function() {}, {passive: true});
-
-// Mejorar rendimiento en scroll
-let scrollTimeout;
-window.addEventListener('scroll', function() {
-    clearTimeout(scrollTimeout);
-    document.body.classList.add('scrolling');
-    
-    scrollTimeout = setTimeout(function() {
-        document.body.classList.remove('scrolling');
-    }, 100);
-});
+// Descomentar si quieres partículas
+// initParticles();
