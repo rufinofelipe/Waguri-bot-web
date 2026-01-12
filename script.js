@@ -1,4 +1,4 @@
-// js/script.js
+// by Rufino 
 
 // ===== INICIALIZACIÓN =====
 document.addEventListener('DOMContentLoaded', function() {
