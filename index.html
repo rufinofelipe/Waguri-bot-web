@@ -270,16 +270,19 @@
         <p class="section-subtitle">Vota por las features que quieres ver primero</p>
     </div>
 
-    <!-- CONTENEDOR DE ANUNCIOS -->
-    <div class="announcements-container" id="announcementsContainer">
-        <!-- Los anuncios se cargan dinámicamente -->
-        <div class="loading-announcements">
-            <div class="loader-spinner small"></div>
-            <p>Cargando anuncios...</p>
-        </div>
+    <!-- SECCIÓN ANUNCIOS -->
+<section class="announcements" id="announcements">
+    <div class="section-header">
+        <h2 class="section-title">Próximas <span class="highlight">Actualizaciones</span></h2>
+        <p class="section-subtitle">Vota por las features que quieres ver primero</p>
     </div>
 
-    <!-- PANEL DE ADMIN (oculto por defecto, se activa con contraseña) -->
+    <!-- CONTENEDOR DE ANUNCIOS -->
+    <div class="announcements-container" id="announcementsContainer">
+        <!-- Los anuncios se cargan aquí -->
+    </div>
+
+    <!-- PANEL ADMIN (oculto inicialmente) -->
     <div class="admin-panel" id="adminPanel" style="display: none;">
         <div class="admin-form">
             <h3><i class="fas fa-plus-circle"></i> Crear Nuevo Anuncio</h3>
@@ -293,7 +296,7 @@
                 <textarea id="announcementFeatures" placeholder="Características (una por línea)" class="form-textarea" rows="3"></textarea>
             </div>
             <div class="form-group">
-                <input type="text" id="announcementEta" placeholder="ETA: Ej. 'Diciembre 2023'" class="form-input">
+                <input type="text" id="announcementEta" placeholder="ETA: Ej. 'Próximamente'" class="form-input">
             </div>
             <button class="btn btn-primary" id="publishAnnouncement">
                 <i class="fas fa-paper-plane"></i> Publicar Anuncio
@@ -301,14 +304,13 @@
         </div>
     </div>
 
-    <!-- BOTÓN PARA ACCEDER AL PANEL ADMIN (solo visible con clave secreta) -->
-    <div class="admin-access">
+    <!-- BOTÓN PARA MOSTRAR PANEL ADMIN -->
+    <div class="admin-access" style="text-align: center; margin-top: 2rem;">
         <button class="btn btn-small btn-secondary" id="toggleAdminPanel">
             <i class="fas fa-cog"></i> Panel Admin
         </button>
     </div>
 </section>
-
     <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-container">
